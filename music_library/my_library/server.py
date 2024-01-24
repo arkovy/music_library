@@ -1,4 +1,4 @@
-from tornado import web, ioloop
+from tornado import web
 import argparse
 import asyncio
 

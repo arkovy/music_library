@@ -6,14 +6,28 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
-            var ws = new WebSocket("ws://localhost:8888/music-update/");
-            ws.onopen = function() {
-               console.log(evt.data);
-            };
-            ws.onmessage = function (evt) {
-               alert(evt.data);
-};
-        })
+            var ws;
+
+            function connectWebSocket() {
+                ws = new WebSocket("ws://localhost:8000/music-update/");
+
+                ws.onopen = function () {
+                    console.log("WebSocket connection opened");
+                };
+
+                ws.onmessage = function (evt) {
+                    alert(evt.data);
+                };
+
+                ws.onclose = function (evt) {
+                    console.log("WebSocket connection closed. Reconnecting...");
+                    setTimeout(function () {
+                        connectWebSocket();
+                    }, 1000);
+                };
+            }
+            connectWebSocket();
+        });
     </script>
     </head>
     <body>
