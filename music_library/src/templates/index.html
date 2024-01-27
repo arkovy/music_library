@@ -9,7 +9,11 @@
             var ws;
 
             function connectWebSocket() {
-                ws = new WebSocket("ws://localhost:8000/music-update/");
+                const currentPort = window.location.port;
+
+                const wsURL = `ws://localhost:${currentPort}/music-update/`;
+
+                ws = new WebSocket(wsURL);
 
                 ws.onopen = function () {
                     console.log("WebSocket connection opened");

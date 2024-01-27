@@ -1,8 +1,10 @@
-from tornado import web
 import argparse
 import asyncio
 
+from tornado import web
+
 from app import Index, Delete, MusicUpdate
+import create_schema
 
 
 def make_app():
@@ -14,6 +16,8 @@ def make_app():
 
 
 async def main():
+    create_schema.create_tables()
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=8000)
     args = parser.parse_args()
